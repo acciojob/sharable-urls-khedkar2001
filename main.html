@@ -1,8 +1,54 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <script type="text/javascript" src="./script.js">
-</script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sharable URL Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      margin: 10px 0;
+      display: block;
+    }
+    #url {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Generate Shareable URL</h2>
 
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" />
+
+  <label for="year">Year:</label>
+  <input type="number" id="year" name="year" />
+
+  <button id="button">Submit</button>
+
+  <h3 id="url">https://localhost:8080/</h3>
+
+  <script>
+    document.getElementById("button").addEventListener("click", function () {
+      const name = document.getElementById("name").value.trim();
+      const year = document.getElementById("year").value.trim();
+      let queryParams = [];
+
+      if (name) {
+        queryParams.push(`name=${encodeURIComponent(name)}`);
+      }
+      if (year) {
+        queryParams.push(`year=${encodeURIComponent(year)}`);
+      }
+
+      const baseUrl = "https://localhost:8080/";
+      const finalUrl = queryParams.length ? `${baseUrl}?${queryParams.join("&")}` : baseUrl;
+      document.getElementById("url").textContent = finalUrl;
+    });
+  </script>
+</body>
 </html>
+
